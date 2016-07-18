@@ -30,12 +30,12 @@ for attr, value in sorted(FLAGS.__flags.items()):
 print("")
 
 # CHANGE THIS: Load data. Load your own data here
-# if FLAGS.eval_train:
-#     x_raw, y_test = data_helpers.load_data_and_labels()
-#     y_test = np.argmax(y_test, axis=1)
-# else:
-x_raw = ["a masterpiece four years in the making", "everything is off.", "I am alive", "I wish I was happy", "I am so sad", "I hate humans"]
-y_test = [1, 0, 1, 0, 0, 0]
+if FLAGS.eval_train:
+    x_raw, y_test = data_helpers.load_data_and_labels()
+    y_test = np.argmax(y_test, axis=1)
+else:
+    x_raw = ["a masterpiece four years in the making", "everything is off.", "I am alive", "I wish I was happy", "I am so sad", "I hate humans"]
+    y_test = [1, 0, 1, 0, 0, 0]
 
 # Map data into vocabulary
 vocab_path = os.path.join(FLAGS.checkpoint_dir, "..", "vocab")
