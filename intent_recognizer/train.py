@@ -20,10 +20,10 @@ tf.flags.DEFINE_float("dropout_keep_prob", 0.5, "Dropout keep probability (defau
 tf.flags.DEFINE_float("l2_reg_lambda", 0.0, "L2 regularizaion lambda (default: 0.0)")
 
 # Training parameters
-tf.flags.DEFINE_integer("batch_size", 64, "Batch Size (default: 64)")
-tf.flags.DEFINE_integer("num_epochs", 200, "Number of training epochs (default: 200)")
-tf.flags.DEFINE_integer("evaluate_every", 100, "Evaluate model on dev set after this many steps (default: 100)")
-tf.flags.DEFINE_integer("checkpoint_every", 100, "Save model after this many steps (default: 100)")
+tf.flags.DEFINE_integer("batch_size", 2, "Batch Size (default: 64)")
+tf.flags.DEFINE_integer("num_epochs", 2, "Number of training epochs (default: 200)")
+tf.flags.DEFINE_integer("evaluate_every", 2, "Evaluate model on dev set after this many steps (default: 100)")
+tf.flags.DEFINE_integer("checkpoint_every", 2, "Save model after this many steps (default: 100)")
 # Misc Parameters
 tf.flags.DEFINE_boolean("allow_soft_placement", True, "Allow device soft device placement")
 tf.flags.DEFINE_boolean("log_device_placement", False, "Log placement of ops on devices")
@@ -41,7 +41,7 @@ print("")
 
 # Load data
 print("Loading data...")
-x_text, y = data_helpers.load_data_and_labels()
+x_text, y, labels = data_helpers.load_data_and_labels()
 
 # Build vocabulary
 max_document_length = max([len(x.split(" ")) for x in x_text])
@@ -55,11 +55,17 @@ x_shuffled = x[shuffle_indices]
 y_shuffled = y[shuffle_indices]
 
 # Split train/test set
-# TODO: This is very crude, should use cross-validation
-x_train, x_dev = x_shuffled[:-1000], x_shuffled[-1000:]
-y_train, y_dev = y_shuffled[:-1000], y_shuffled[-1000:]
+
+x_split_index = len(x_shuffled) * 0.2
+y_split_index = len(y_shuffled) * 0.2
+
+x_train, x_dev = x_shuffled[:-x_split_index], x_shuffled[-x_split_index:]
+y_train, y_dev = y_shuffled[:-y_split_index], y_shuffled[-y_split_index:]
+
+
 print("Vocabulary Size: {:d}".format(len(vocab_processor.vocabulary_)))
-print("Train/Dev split: {:d}/{:d}".format(len(y_train), len(y_dev)))
+print("T Train/Dev split: {:d}/{:d}".format(len(x_train), len(x_dev)))
+print("Y Train/Dev split: {:d}/{:d}".format(len(y_train), len(y_dev)))
 
 
 # Training
@@ -73,12 +79,13 @@ with tf.Graph().as_default():
     with sess.as_default():
         cnn = TextCNN(
             sequence_length=x_train.shape[1],
-            num_classes=2,
+            num_classes=len(labels),
             vocab_size=len(vocab_processor.vocabulary_),
             embedding_size=FLAGS.embedding_dim,
             filter_sizes=list(map(int, FLAGS.filter_sizes.split(","))),
             num_filters=FLAGS.num_filters,
-            l2_reg_lambda=FLAGS.l2_reg_lambda)
+            l2_reg_lambda=FLAGS.l2_reg_lambda,
+            embedding_type="static")
 
         # Define Training procedure
         global_step = tf.Variable(0, name="global_step", trainable=False)
@@ -99,6 +106,7 @@ with tf.Graph().as_default():
         # Output directory for models and summaries
         timestamp = str(int(time.time()))
         out_dir = os.path.abspath(os.path.join(os.path.curdir, "runs", timestamp))
+
         print("Writing to {}\n".format(out_dir))
 
         # Summaries for loss and accuracy
@@ -124,6 +132,9 @@ with tf.Graph().as_default():
 
         # Write vocabulary
         vocab_processor.save(os.path.join(out_dir, "vocab"))
+
+        # Save labels
+        data_helpers.save_labels_to_file(out_dir, labels)
 
         # Initialize all variables
         sess.run(tf.initialize_all_variables())

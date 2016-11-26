@@ -1,6 +1,12 @@
 import tensorflow as tf
 import numpy as np
 
+from tensorflow.python.framework import ops
+from tensorflow.python.ops import array_ops as array_ops_
+from tensorflow.python.ops import math_ops
+from tensorflow.python.ops import nn
+from tensorflow.python.ops import variable_scope as vs
+
 
 class TextCNN(object):
     """
@@ -9,7 +15,7 @@ class TextCNN(object):
     """
     def __init__(
       self, sequence_length, num_classes, vocab_size,
-      embedding_size, filter_sizes, num_filters, l2_reg_lambda=0.0):
+      embedding_size, filter_sizes, num_filters, l2_reg_lambda=0.0, embedding_type='static'):
 
         # Placeholders for input, output and dropout
         self.input_x = tf.placeholder(tf.int32, [None, sequence_length], name="input_x")
@@ -20,12 +26,48 @@ class TextCNN(object):
         l2_loss = tf.constant(0.0)
 
         # Embedding layer
+        # with tf.device('/cpu:0'), tf.name_scope("embedding"):
         with tf.device('/cpu:0'), tf.name_scope("embedding"):
-            W = tf.Variable(
-                tf.random_uniform([vocab_size, embedding_size], -1.0, 1.0),
-                name="W")
-            self.embedded_chars = tf.nn.embedding_lookup(W, self.input_x)
-            self.embedded_chars_expanded = tf.expand_dims(self.embedded_chars, -1)
+
+            # use pretrained word2vec embeddings
+            if embedding_type in 'static':
+                ids = self.input_x
+                embeddings = vs.get_variable('w2v' + "_embeddings",
+                                             [num_classes, embedding_size])
+                name = "embedding_lookup"
+                ids = ops.convert_to_tensor(ids)
+
+                # used to load w2v as follows
+                # w2v = word2vec_basic.load_word_2_vec()
+
+                # load from nm.save()
+                w2v = np.load("w2v.model.en.npy")
+                print("Loaded w2v....")
+
+                params = tf.Variable(w2v)
+
+                # shape
+                shape = array_ops_.shape(ids)
+
+                # concatenates all the ids from all the sentences
+                ids_flat = array_ops_.reshape(ids, math_ops.reduce_prod(shape, keep_dims=True))
+                #
+                embeds_flat = nn.embedding_lookup(params, ids_flat, name)
+                embed_shape = array_ops_.concat(0, [shape, [-1]])
+                embeds = array_ops_.reshape(embeds_flat, embed_shape)
+                embeds.set_shape(ids.get_shape().concatenate(params.get_shape()[1:]))
+
+                self.embedded_chars = embeds
+                self.embedded_chars_expanded = tf.expand_dims(self.embedded_chars, -1)
+
+
+            else:
+                W = tf.Variable(
+                    tf.random_uniform([vocab_size, embedding_size], -1.0, 1.0),
+                    name="W")
+
+                self.embedded_chars = tf.nn.embedding_lookup(W, self.input_x)
+                self.embedded_chars_expanded = tf.expand_dims(self.embedded_chars, -1)
 
         # Create a convolution + maxpool layer for each filter size
         pooled_outputs = []
@@ -82,3 +124,6 @@ class TextCNN(object):
         with tf.name_scope("accuracy"):
             correct_predictions = tf.equal(self.predictions, tf.argmax(self.input_y, 1))
             self.accuracy = tf.reduce_mean(tf.cast(correct_predictions, "float"), name="accuracy")
+
+
+
