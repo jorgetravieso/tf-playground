@@ -15,8 +15,7 @@ sess, model, enc_vocab, rev_dec_vocab = execute.init_session(sess, conf='seq2seq
 
 while True:
 	conversation = []
-	print('Jorge: ', end='')
-	line = sys.stdin.readline()
+	line = input("Jorge: ")
 	if line == '...':
 		print('New Conversation ...\n')
 		conversation = []

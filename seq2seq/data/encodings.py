@@ -45,7 +45,7 @@ def read_conversations_2_seqs(convs_path):
 
 def main():
 	conversations_file = 'conversations.txt'
-	test_percentage = 0.25
+	test_percentage = 0.1
 	path = ''
 
 	# read the conversations into sequence tuples
