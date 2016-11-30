@@ -5,9 +5,9 @@ def conversation_2_seqs(conv):
 	sequences = []
 	sequence = ""
 	for utt in conv:
-		if utt.speaker == "U" and len(sequence) > 0:
+		if utt.speaker == "user" and len(sequence) > 0:
 			sequences.append((sequence.strip(), utt.content))
-		elif utt.speaker == "A" and len(sequence) > 0 and len(sequences) == 0:
+		elif utt.speaker == "agent" and len(sequence) > 0 and len(sequences) == 0:
 			sequences.append((sequence.strip(), utt.content))
 		sequence += utt.content + " "
 	return sequences
@@ -25,6 +25,7 @@ def read_conversations(convs_path):
 			speaker_end_index = line.index(':')
 			speaker, content = line[0:speaker_end_index], line[speaker_end_index + 1:]
 			conversation.append(Utterance(speaker.strip(), content.strip().lower()))
+	print('There are ' + str(len(convs)) + ' conversations')
 	return convs
 
 
