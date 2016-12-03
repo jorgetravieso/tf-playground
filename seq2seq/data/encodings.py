@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import random
 
 
@@ -37,16 +39,23 @@ class Utterance:
 
 def read_conversations_2_seqs(convs_path):
 	conversations = read_conversations(convs_path)
-	sequences = []
-	for c in conversations:
+	sequences = {}
+	for i, c in enumerate(conversations):
 		for seq in conversation_2_seqs(c):
-			sequences.append(seq)
+			if i not in sequences:
+				sequences[i] = []
+			sequences[i].append(seq)
 	return sequences
+
+
+def write_sequences_to_file(file, sequences, index):
+	for s in sequences:
+		file.write(s[index] + '\n')
 
 
 def main():
 	conversations_file = 'conversations.txt'
-	test_percentage = 0.1
+	test_percentage = 0.20
 	path = ''
 
 	# read the conversations into sequence tuples
@@ -64,11 +73,11 @@ def main():
 
 	for i in range(len(sequences)):
 		if i in test_ids:
-			test_enc.write(sequences[i][0] + '\n')
-			test_dec.write(sequences[i][1] + '\n')
+			write_sequences_to_file(test_enc, sequences[i], 0)
+			write_sequences_to_file(test_dec, sequences[i], 1)
 		else:
-			train_enc.write(sequences[i][0] + '\n')
-			train_dec.write(sequences[i][1] + '\n')
+			write_sequences_to_file(train_enc, sequences[i], 0)
+			write_sequences_to_file(train_dec, sequences[i], 1)
 
 
 	# close files
