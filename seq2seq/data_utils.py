@@ -38,8 +38,8 @@ EOS_ID = 2
 UNK_ID = 3
 
 # Regular expressions used to tokenize.
-_WORD_SPLIT = re.compile(b"([.,!?\"':;)(])")
-_DIGIT_RE = re.compile(br"\d")
+_WORD_SPLIT = re.compile("([.,!?\"':;)(])")
+_DIGIT_RE = re.compile("\d")
 
 
 def basic_tokenizer(sentence):
@@ -63,7 +63,7 @@ def create_vocabulary(vocabulary_path, data_path, max_vocabulary_size,
                     print("  processing line %d" % counter)
                 tokens = tokenizer(line) if tokenizer else basic_tokenizer(line)
                 for w in tokens:
-                    word = re.sub(_DIGIT_RE, b"0", w) if normalize_digits else w
+                    word = re.sub(_DIGIT_RE, "0", w) if normalize_digits else w
                     if word in vocab:
                         vocab[word] += 1
                     else:
@@ -74,7 +74,7 @@ def create_vocabulary(vocabulary_path, data_path, max_vocabulary_size,
                 vocab_list = vocab_list[:max_vocabulary_size]
             with gfile.GFile(vocabulary_path, mode="wb") as vocab_file:
                 for w in vocab_list:
-                    vocab_file.write(w + b"\n")
+                    vocab_file.write(w + "\n")
 
 
 def initialize_vocabulary(vocabulary_path):
@@ -137,4 +137,4 @@ def prepare_custom_data(working_directory, train_enc, train_dec, test_enc, test_
     data_to_token_ids(test_enc, enc_dev_ids_path, enc_vocab_path, tokenizer)
     data_to_token_ids(test_dec, dec_dev_ids_path, dec_vocab_path, tokenizer)
 
-    return (enc_train_ids_path, dec_train_ids_path, enc_dev_ids_path, dec_dev_ids_path, enc_vocab_path, dec_vocab_path)
+    return enc_train_ids_path, dec_train_ids_path, enc_dev_ids_path, dec_dev_ids_path, enc_vocab_path, dec_vocab_path

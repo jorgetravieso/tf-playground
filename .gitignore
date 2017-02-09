@@ -5,8 +5,7 @@
 #models
 runs/*
 working_dir
-conversations.txt
-
+seq2seq/data/*
 
 runs/
 
