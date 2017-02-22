@@ -1,0 +1,70 @@
+[
+    [
+        "greet(username=amanda)",
+        "hello amanda",
+        "hi amanda"
+    ],
+    [
+        "confirm(username=lauren;intent=quote;act=greeting)",
+        "hi lauren , let me confirm, are you having a problem with your quote ?",
+        "hello lauren , i wanted to confirm that you are having a problem with a quote"
+    ],
+    [
+        "confirm(username=kriselle;intent=policy;act=greeting)",
+        "hello kriselle , i saw that you are having some problems with your policy",
+        "hello lauren , i see that you have some questions regarding your policy"
+    ],
+    [
+        "confirm(username=lauren;intent=quote)",
+        "are you having a problem with your quote ?",
+        "are you having a problem with a quote ?"
+    ],
+    [
+        "confirm(username=kriselle;intent=policy)",
+        "are you having some problems with your policy ?",
+        "do you have some questions regarding your policy ?"
+    ],
+    [
+        "?select(username=kriselle;intent=quote;intent=policy)",
+        "is it for a quote or a policy ?",
+        "is it for a quote or an existing policy ?"
+    ],
+    [
+        "?select(intent=policy;intent=quote)",
+        "is it for a quote or a policy ?",
+        "is it for a quote or an existing policy ?"
+    ],
+    [
+        "?select(intent=policy;intent=quote)",
+        "is it for a quote or a policy ?",
+        "is it for a quote or an existing policy ?"
+    ],
+    [
+        "?select(intent=add_person;person_type=spouse;person_type=child)",
+        "do you want to add your spouse or your child ?",
+        "are you trying to add your spouse or your child ?"
+    ],
+    [
+        "?select(intent=remove_person;person_type=spouse;person_type=child)",
+        "do you want to remove your spouse or your child ?",
+        "are you trying to remove your spouse or your child ?"
+    ],
+    [
+        "?select(intent=remove_person)",
+        "who are you trying to remove ?",
+        "who do you want to remove ?"
+    ],
+    [
+        "?select(intent=remove_person)",
+        "who are you trying to remove ?",
+        "who do you want to remove ?"
+    ],
+    [
+        "?select(intent=quote;intent=remove_person)",
+        "who are you trying to remove from your quote ?",
+        "who do you want to remove from your quote ?"
+    ],
+    [
+        "?select(intent=quote)"
+    ]
+]
