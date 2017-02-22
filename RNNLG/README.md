@@ -136,6 +136,11 @@ To run generation:
 python main.py -config config/sclstm.cfg -mode test
 ```
 
+To run iterative evaluations:
+```
+python main.py -config config/sclstm.cfg -mode eval
+```
+
 To run ngram/knn baselines:
 ```
 python main.py -config config/ngram.cfg -mode ngram
