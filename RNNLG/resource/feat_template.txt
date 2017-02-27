@@ -13,6 +13,11 @@ a.inform_no_match
 a.inform_only_match
 a.recommend
 a.suggest
+a.greet
+s.username
+s.act
+s.intent
+s.person_type
 sv.acceptscreditcards.dontcare
 sv.acceptscreditcards.no
 sv.acceptscreditcards.yes
