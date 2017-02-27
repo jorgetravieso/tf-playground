@@ -149,6 +149,7 @@ class DataReader(object):
 		proc_data = [[], [], [], []]
 		max_leng = [0, 0, 0, 0, 0]
 		feat = self.formatter.format(dact)
+		print ('feat: ', feat)
 
 		xvec = self.genFeatVec(feat, self.cardinality, self.dfs)
 		for j in range(len(proc_data)):
@@ -338,6 +339,7 @@ class DataReader(object):
 			sv.append(cardinality.index('sv.NONE.NONE') - dfs[1])
 			s.append(cardinality.index('s.NONE') - dfs[2])
 			v.append(cardinality.index('v.NONE') - dfs[3])
+		print('a', a, 'sv', sv, 's', s, 'v', v)
 		return a, sv, s, v
 		"""
 		featvec = [0.0 for x in range(len(cardinality))]

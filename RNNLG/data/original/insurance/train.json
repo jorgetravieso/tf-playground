@@ -5,27 +5,27 @@
 #####################################################
 [
   [
-    "greet(username=amanda)",
+    "greet(username='amanda')",
     "hello amanda",
     "hi amanda"
   ],
   [
-    "?confirm(username=lauren;intent=quote;act=greeting)",
-    "hi lauren , let me confirm, are you having a problem with your quote ?",
+    "?confirm(username='lauren';intent=quote;act=greeting)",
+    "hi lauren , let me confirm , are you having a problem with your quote ?",
     "hello lauren , i wanted to confirm that you are having a problem with a quote"
   ],
   [
-    "?confirm(username=lauren;intent=quote)",
+    "?confirm(username='lauren';intent=quote)",
     "are you having a problem with your quote ?",
     "are you having a problem with a quote ?"
   ],
   [
-    "?confirm(username=kriselle;intent=policy)",
+    "?confirm(username='kriselle';intent=policy)",
     "are you having some problems with your policy ?",
     "do you have some questions regarding your policy ?"
   ],
   [
-    "?select(username=kriselle;intent=quote;intent=policy)",
+    "?select(username='kriselle';intent=quote;intent=policy)",
     "is it for a quote or a policy ?",
     "is it for a quote or an existing policy ?"
   ],
