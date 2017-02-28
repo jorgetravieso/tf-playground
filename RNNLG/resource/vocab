@@ -2,15 +2,13 @@
 </s>
 ,
 ?
-Amanda
-Kriselle
-Lauren
 SLOT_ACT
 SLOT_INTENT
 SLOT_PERSONTYPE
 SLOT_USERNAME
 a
 add
+amanda
 an
 are
 child
@@ -19,6 +17,7 @@ do
 existing
 for
 from
+getting
 have
 having
 hello
@@ -26,6 +25,8 @@ hi
 i
 is
 it
+jorge
+kriselle
 lauren
 let
 me
@@ -42,6 +43,7 @@ see
 some
 spouse
 that
+the
 to
 trying
 want

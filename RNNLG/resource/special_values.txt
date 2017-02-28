@@ -2,5 +2,7 @@
     "none"  :   ["none"],
     "yes"   :   ["true","yes"],
     "no"    :   ["false","no"],
-    "dontcare"  :   ["dontcare","dont_care"]
+    "dontcare"  :   ["dontcare","dont_care"],
+    "add_person" : [ "add_person" ],
+    "remove_person" : [ "remove_person" ]
 }

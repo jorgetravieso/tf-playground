@@ -1,5 +1,5 @@
-from loader.DataReader import DataReader
 import json
+import numpy as np
 
 
 def parse(dact):
@@ -28,11 +28,27 @@ def parse(dact):
 	return jsact
 
 
+# read data
 data = json.load(file('all.json'))
+#data = np.array(data)
 
+# create test split
+data_split = int(len(data) * 0.25)
+np.random.shuffle(data)
+train = data[data_split:]
+test = data[:data_split]
+
+# create train and test file
+json.dump(train, open("train.json", "wb"), indent=2)
+json.dump(test, open("test.json", "wb"), indent=2)
+json.dump(test, open("valid.json", "wb"), indent=2)
+print "Size of training set: %d" % len(train)
+print "Size of test set: %d" % len(test)
+
+# prepare dictionaries
 detect_pairs = {'general': {}}
-special_slots = json.load(file('resource/special_slots.txt'))
-special_values = json.load(file('resource/special_values.txt'))
+special_slots = json.load(file('../../../resource/special_slots.txt'))
+special_values = json.load(file('../../../resource/special_values.txt'))
 features = set()
 vocab = set()
 

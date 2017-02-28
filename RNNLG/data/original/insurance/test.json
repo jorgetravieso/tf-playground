@@ -1,8 +1,42 @@
-#####################################################
-#####################################################
-#  Copyright Cambridge Dialogue Systems Group, 2016 #
-#####################################################
-#####################################################
 [
-
+  [
+    "?select(intent=remove_person;intent=policy;intent=quote;persontype=spouse)", 
+    "do you want to remove your spouse from the policy or a quote ?", 
+    "do you want to remove your spouse from the policy or a quote ?"
+  ], 
+  [
+    "inform(username='amanda';act=greet)", 
+    "hello amanda", 
+    "hi amanda"
+  ], 
+  [
+    "?select(username='amanda';act=greet;intent=add_person;persontype=spouse;persontype=child)", 
+    "hi amanda , do you want to add your spouse or your child ?", 
+    "hello amanda , are you trying to add your spouse or your child ?"
+  ], 
+  [
+    "?confirm(act=greet;intent=policy)", 
+    "hi , are you having some problems with your policy ?", 
+    "hello , do you have some questions regarding your policy ?"
+  ], 
+  [
+    "?select(intent=add_person;intent=policy;intent=quote;persontype=spouse)", 
+    "do you want to add your spouse to the policy or a quote ?", 
+    "do you want to add your spouse to the policy or a quote ?"
+  ], 
+  [
+    "?confirm(username='amanda';act=greet;intent=policy)", 
+    "hi amanda , are you having problems with your policy ?", 
+    "hello amanda , do you have questions regarding your policy ?"
+  ], 
+  [
+    "?select(act=greet;intent=remove_person;persontype=spouse;persontype=child)", 
+    "hi , do you want to remove your spouse or your child ?", 
+    "hello , are you trying to remove your spouse or your child ?"
+  ], 
+  [
+    "inform(username='jorge';act=greet)", 
+    "hello jorge", 
+    "hi jorge"
+  ]
 ]

@@ -230,8 +230,8 @@ class DataReader(object):
 
 		fin = file(filename)
 		# remove comment lines
-		for i in range(5):
-			fin.readline()
+		# for i in range(5):
+		#	fin.readline()
 		data = json.load(fin)
 		fin.close()
 

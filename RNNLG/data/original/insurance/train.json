@@ -1,132 +1,137 @@
-#####################################################
-#####################################################
-#  Copyright Cambridge Dialogue Systems Group, 2016 #
-#####################################################
-#####################################################
 [
   [
-    "inform(username='amanda';act=greet)",
-    "hello amanda",
-    "hi amanda"
-  ],
-  [
-    "inform(username='jorge';act=greet)",
-    "hello jorge",
-    "hi jorge"
-  ],
-  [
-    "inform(username='kriselle';act=greet)",
-    "hello kriselle",
-    "hi kriselle"
-  ],
-  [
-    "inform(act=greet)",
-    "hello",
-    "hi"
-  ],
-  [
-    "?confirm(username='kriselle';act=greet;intent=quote)",
-    "hello kriselle , are you having a problem with your quote ?",
-    "hi kriselle , are you having a problem getting a quote ?"
-  ],
-  [
-    "?confirm(act=greet;intent=quote)",
-    "hello , are you having a problem with your quote ?",
-    "hi , are you having a problem getting a quote ?"
-  ],
-  [
-    "?confirm(username='amanda';act=greet;intent=quote)",
-    "hello amanda , are you having a problem with your quote ?",
-    "hi amanda , are you having a problem with a quote ?"
-  ],
-  [
-    "?confirm(username='jorge';act=greet;intent=quote)",
-    "hello jorge , are you having a problem with your quote ?",
-    "hi jorge , are you having a problem with a quote ?"
-  ],
-  [
-    "?confirm(username='kriselle';act=greet;intent=policy)",
-    "hi kriselle , are you having some problems with your policy ?",
-    "hi kriselle , do you have some questions regarding your policy ?"
-  ],
-  [
-    "?confirm(username='amanda';act=greet;intent=policy)",
-    "hi amanda , are you having problems with your policy ?",
-    "hello amanda , do you have questions regarding your policy ?"
-  ],
-  [
-    "?confirm(username='kriselle';act=greet;intent=policy)",
-    "hi kriselle , are you having some problems with your policy ?",
-    "hello kriselle  , do you have some questions regarding your policy ?"
-  ],
-  [
-    "?select(intent=quote;intent=policy)",
-    "is it for a quote or a policy ?",
+    "?select(intent=quote;intent=policy)", 
+    "is it for a quote or a policy ?", 
     "is it for a quote or an existing policy ?"
-  ],
+  ], 
   [
-    "?select(username='kriselle';act=greet;intent=quote;intent=policy)",
-    "hi kriselle , is it for a quote or a policy ?",
-    "hello kriselle , is it for a quote or an existing policy ?"
-  ],
+    "inform(act=greet)", 
+    "hello", 
+    "hi"
+  ], 
   [
-    "?select(act=greet;intent=quote;intent=policy)",
-    "hi , is it for a quote or a policy ?",
-    "hello , is it for a quote or an existing policy ?"
-  ],
-  [
-    "?select(intent=add_person;person_type=spouse;person_type=child)",
-    "do you want to add your spouse or your child ?",
-    "are you trying to add your spouse or your child ?"
-  ],
-  [
-    "?select(intent=remove_person)",
-    "who are you trying to remove ?",
-    "who do you want to remove ?"
-  ],
-  [
-    "?select(intent=quote;intent=remove_person)",
-    "who are you trying to remove from your quote ?",
-    "who do you want to remove from your quote ?"
-  ],
-  [
-    "?select(intent=quote;intent=add_person)",
-    "who are you trying to add to the quote ?",
+    "?select(intent=quote;intent=add_person)", 
+    "who are you trying to add to the quote ?", 
     "who do you want to add to your quote ?"
-  ],
+  ], 
   [
-    "?select(intent=quote;intent=add_person)",
-    "who are you trying to add to the quote ?",
-    "who do you want to add to your quote ?"
-  ],
+    "?confirm(username='kriselle';act=greet;intent=policy)", 
+    "hi kriselle , are you having some problems with your policy ?", 
+    "hi kriselle , do you have some questions regarding your policy ?"
+  ], 
   [
-    "?confirm(username='kriselle';intent=policy;act=greeting)",
-    "hello kriselle , i saw that you are having some problems with your policy",
-    "hello lauren , i see that you have some questions regarding your policy"
-  ],
+    "?select(act=greet;intent=add_person;persontype=spouse;persontype=child)", 
+    "hi , do you want to add your spouse or your child ?", 
+    "hello , are you trying to add your spouse or your child ?"
+  ], 
   [
-    "?confirm(username='lauren';intent=quote;act=greeting)",
-    "hi lauren , let me confirm , are you having a problem with your quote ?",
-    "hello lauren , i wanted to confirm that you are having a problem with a quote"
-  ],
-  [
-    "?select(intent=remove_person;person_type=spouse;person_type=child)",
-    "do you want to remove your spouse or your child ?",
-    "are you trying to remove your spouse or your child ?"
-  ],
-  [
-    "?select(intent=add_person)",
-    "who are you trying add ?",
+    "?select(intent=add_person)", 
+    "who are you trying add ?", 
     "who do you want to add ?"
-  ],
+  ], 
   [
-    "?select(intent=policy;intent=remove_person)",
-    "who are you trying to remove from the policy ?",
-    "who do you want to remove from the policy ?"
-  ],
+    "?select(intent=quote;intent=add_person)", 
+    "who are you trying to add to the quote ?", 
+    "who do you want to add to your quote ?"
+  ], 
   [
-    "?select(intent=policy;intent=add_person)",
-    "who are you trying to add to the policy ?",
+    "?confirm(username='kriselle';intent=policy;act=greeting)", 
+    "hello kriselle , i saw that you are having some problems with your policy", 
+    "hello lauren , i see that you have some questions regarding your policy"
+  ], 
+  [
+    "?select(intent=add_person;intent=policy;intent=quote;persontype=child)", 
+    "do you want to add your child to the policy or a quote ?", 
+    "do you want to add your child to the policy or a quote ?"
+  ], 
+  [
+    "?select(intent=remove_person)", 
+    "who are you trying to remove ?", 
+    "who do you want to remove ?"
+  ], 
+  [
+    "?select(act=greet;intent=quote;intent=policy)", 
+    "hi , is it for a quote or a policy ?", 
+    "hello , is it for a quote or an existing policy ?"
+  ], 
+  [
+    "?select(intent=policy;intent=add_person)", 
+    "who are you trying to add to the policy ?", 
     "who do you want to add to your policy ?"
+  ], 
+  [
+    "?confirm(username='amanda';act=greet;intent=quote)", 
+    "hello amanda , are you having a problem with your quote ?", 
+    "hi amanda , are you having a problem with a quote ?"
+  ], 
+  [
+    "?confirm(username='kriselle';act=greet;intent=policy)", 
+    "hi kriselle , are you having some problems with your policy ?", 
+    "hello kriselle  , do you have some questions regarding your policy ?"
+  ], 
+  [
+    "?confirm(act=greet;intent=quote)", 
+    "hello , are you having a problem with your quote ?", 
+    "hi , are you having a problem with a quote ?"
+  ], 
+  [
+    "?select(intent=add_person;persontype=spouse;persontype=child)", 
+    "do you want to add your spouse or your child ?", 
+    "are you trying to add your spouse or your child ?"
+  ], 
+  [
+    "?select(username='kriselle';act=greet;intent=quote;intent=policy)", 
+    "hi kriselle , is it for a quote or a policy ?", 
+    "hello kriselle , is it for a quote or an existing policy ?"
+  ], 
+  [
+    "?confirm(username='lauren';intent=quote;act=greeting)", 
+    "hi lauren , let me confirm , are you having a problem with your quote ?", 
+    "hello lauren , i wanted to confirm that you are having a problem with a quote"
+  ], 
+  [
+    "?select(intent=policy;intent=remove_person)", 
+    "who are you trying to remove from the policy ?", 
+    "who do you want to remove from the policy ?"
+  ], 
+  [
+    "?select(intent=remove_person;intent=policy;intent=quote;persontype=child)", 
+    "do you want to remove your child from the policy or a quote ?", 
+    "do you want to remove your child from the policy or a quote ?"
+  ], 
+  [
+    "?select(username='amanda';act=greet;intent=remove_person;persontype=spouse;persontype=child)", 
+    "hi amanda , do you want to remove your spouse or your child ?", 
+    "hello amanda , are you trying to remove your spouse or your child ?"
+  ], 
+  [
+    "?confirm(username='jorge';act=greet;intent=quote)", 
+    "hello jorge , are you having a problem with your quote ?", 
+    "hi jorge , are you having a problem with a quote ?"
+  ], 
+  [
+    "?select(act=greet;intent=quote;intent=policy)", 
+    "hi , is it for a quote or a policy ?", 
+    "hello , is it for a quote or an existing policy ?"
+  ], 
+  [
+    "?select(intent=quote;intent=remove_person)", 
+    "who are you trying to remove from your quote ?", 
+    "who do you want to remove from your quote ?"
+  ], 
+  [
+    "?select(intent=remove_person;persontype=spouse;persontype=child)", 
+    "do you want to remove your spouse or your child ?", 
+    "are you trying to remove your spouse or your child ?"
+  ], 
+  [
+    "?confirm(username='kriselle';act=greet;intent=quote)", 
+    "hello kriselle , are you having a problem with your quote ?", 
+    "hi kriselle , are you having a problem getting a quote ?"
+  ], 
+  [
+    "inform(username='kriselle';act=greet)", 
+    "hello kriselle", 
+    "hi kriselle"
   ]
 ]
