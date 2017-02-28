@@ -325,6 +325,7 @@ class DataReader(object):
 		return word2vec
 
 	def genFeatVec(self, feat, cardinality, dfs):
+		print 'feat: ' + str(feat)
 		a, sv, s, v = [], [], [], []
 		a.append(cardinality.index('a.' + feat[0][-1]))
 		for item in feat[1:]:

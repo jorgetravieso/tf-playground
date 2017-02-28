@@ -33,12 +33,12 @@ data = json.load(file('all.json'))
 detect_pairs = {'general': {}}
 special_slots = json.load(file('resource/special_slots.txt'))
 special_values = json.load(file('resource/special_values.txt'))
-features = []
+features = set()
 vocab = set()
 
 for d in data:
 	dact = parse(d[0])
-	features.append('a.' + dact['acttype'])
+	features.add('a.' + dact['acttype'])
 	slot_counter = {}
 
 	# go through the slots for a dialog
@@ -50,15 +50,16 @@ for d in data:
 		slot_counter[name] = slot_counter.get(name, 0) + 1
 
 		# add the slot
-		features.append(name)
+		features.add(name)
 		if keep_value:  # todo not sure if this is right or necessary
 			special_slots.append(slot[0])
 		detect_pairs['general'][slot[0]] = 'SLOT_' + str(slot[0]).upper()
+		vocab.add(detect_pairs['general'][slot[0]])
 
 		# add the slot value
 		val = slot[1] if keep_value else slot[1] + str(slot_counter[name])
 		sv = 'sv.' + slot[0] + '.' + val
-		features.append(sv)
+		features.add(sv)
 
 	for i in range(1, len(d)):
 		for w in d[i].split(' '):
@@ -66,11 +67,15 @@ for d in data:
 
 print '\n\nDetect Pairs'
 for s, alias in detect_pairs['general'].items():
-	print s + ':' + str(alias)
+	print '"%s" : "%s"  ' % (s, alias)
 
 print '\n\nFeatures Template'
 for f in sorted(features):
 	print f
+
+print '\n\nSpecial Slots'
+for s in set(special_slots):
+	print s
 
 print '\n\nVocab'
 for v in sorted(vocab):

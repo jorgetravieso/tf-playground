@@ -77,7 +77,7 @@ class Model(object):
 
 	def initNet(self, config, opts=None):
 
-		print '\n\ninit net from scrach ... '
+		print '\n\ninit net from scratch ... '
 
 		# config parser
 		parser = SafeConfigParser()
@@ -191,15 +191,13 @@ class Model(object):
 				# unfold data point
 				a, sv, s, v, words, _, _, cutoff_b, cutoff_f = data
 				# train net using current example
-				train_logp += self.model.train(a, sv, s, v, words,
-				                               cutoff_f, cutoff_b, self.lr, reg)
+				train_logp += self.model.train(a, sv, s, v, words, cutoff_f, cutoff_b, self.lr, reg)
 				# count words and sents
 				wcn += np.sum(cutoff_f - 1)
 				num_sent += cutoff_b
 				# log message
 				if self.debug and num_sent % 100 == 0:
-					print 'Finishing %8d sent in epoch %3d\r' % \
-					      (num_sent, epoch),
+					print 'Finishing %8d sent in epoch %3d\r' % (num_sent, epoch),
 					sys.stdout.flush()
 			# log message
 			sec = (time.time() - tic) / 60.0
