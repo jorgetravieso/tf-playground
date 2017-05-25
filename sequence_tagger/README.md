@@ -9,7 +9,6 @@ TensorFlow 1.0
 [2] https://arxiv.org/pdf/1603.01354.pdf
 
 #### Task
-
 Given a sentence, give a tag to each word. A classical application is Named Entity Recognition (NER). Here is an example
 
 ```
