@@ -1,0 +1,8 @@
+I-NEG-E
+B-NEG-V
+B-POS-E
+B-POS-A
+B-NEG-E
+O
+B-NEG-A
+B-POS-V

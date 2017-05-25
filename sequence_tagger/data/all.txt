@@ -1,0 +1,11 @@
+John B-PER
+lives O
+in O
+New B-LOC
+York I-LOC
+. O
+
+This O
+is O
+another O
+sentence O
