@@ -1,16 +1,12 @@
 # tf-playground
 In this repo, I experiment with TensorFlow models and make some adaptations to them.
+Keeping them as a personal library of useful models; however, I do not claim ownership of the original code.
 
 ### Models
-- Seq2Seq Learning
-  - Original code: https://github.com/suriyadeepan/easy_seq2seq
-  - Adapting it to other domains and tasks, such as keeping the conversations context
 - Multi-class CNN Text Classification
-  - Original code: https://github.com/dennybritz/cnn-text-classification-tf
-  - Allow to use word2vec embeddings
-  - Modified the model to be multi-class
-- RNNLG (Aka. SCLSTM) Natural Language Generation with NN
-  - Added method for iterative evaluations
-
-### To-Do
-- Try to do a spelling and grammar correction seq2seq
+    - Original code: https://github.com/dennybritz/cnn-text-classification-tf
+    - Allow to use word2vec embeddings
+    - Modified the model to be multi-class
+- SCLSTM Semantically Conditioned LSTM for Language Generation
+    - Added method for iterative evaluations
+- Sequence Tagging with Bi-RNN
