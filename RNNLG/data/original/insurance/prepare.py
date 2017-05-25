@@ -30,7 +30,6 @@ def parse(dact):
 
 # read data
 data = json.load(file('all.json'))
-#data = np.array(data)
 
 # create test split
 data_split = int(len(data) * 0.25)
