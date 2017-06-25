@@ -49,14 +49,19 @@ class Data:
 		self.y = y
 		self.n = len(x)
 
-	def next_batch(self, size):
+	def next_batch(self, batch_size):
 		batch_x = []
 		batch_y = []
-		while size > 0:
+		counter = 0
+		while batch_size > 0 and counter < self.n:
 			batch_x.append(self.x[self.iter])
 			batch_y.append(self.y[self.iter])
 			self.iter = (self.iter + 1) % self.n
-			size -= 1
+			batch_size -= 1
+			counter += 1
 		return np.array(batch_x), np.array(batch_y)
+
+	def all(self):
+		return np.array(self.x), np.array(self.y)
 
 

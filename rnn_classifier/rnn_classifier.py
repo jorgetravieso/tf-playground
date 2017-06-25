@@ -2,16 +2,8 @@ from __future__ import print_function
 
 import tensorflow as tf
 from tensorflow.contrib import rnn
-import numpy as np
-
-# Import MNIST data
-# from tensorflow.examples.tutorials.mnist import input_data
-# mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-
 '''
-To classify images using a bidirectional recurrent neural network, we consider
-every image row as a sequence of pixels. Because MNIST image shape is 28*28px,
-we will then handle 28 sequences of 28 steps for every sample.
+To classify text using a BiDirectional LSTM
 '''
 
 # Parameters
@@ -103,7 +95,7 @@ class BiRNNClassifier:
             while step * batch_size < training_iters:
                 batch_x, batch_y = dataset.train.next_batch(batch_size)
                 # Reshape data to get 28 seq of 28 elements
-                batch_x = batch_x.reshape((batch_size, self.n_steps, 1))
+                batch_x = batch_x.reshape((len(batch_x), self.n_steps, 1))
                 # Run optimization op
                 sess.run(self.optimizer, feed_dict={self.x: batch_x, self.y: batch_y})
                 if step % display_step == 0:
@@ -117,10 +109,7 @@ class BiRNNClassifier:
                 step += 1
             print("Optimization Finished!")
 
-            # # Calculate accuracy for 128 mnist test images
-            # test_len = 128
-            # test_data = mnist.test.images[:test_len].reshape((-1, n_steps, n_input))
-            # test_label = mnist.test.labels[:test_len]
-            # print("Testing Accuracy:", \
-            #       sess.run(self.accuracy, feed_dict={self.x: test_data, self.y: test_label}))
-
+            # Calculate accuracy for test data
+            test_x, test_y = dataset.dev.all()
+            test_x = test_x.reshape((len(test_x), self.n_steps, 1))
+            print("Testing Accuracy:", sess.run(self.accuracy, feed_dict={self.x: test_x, self.y: test_y}))
