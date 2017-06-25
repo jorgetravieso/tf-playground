@@ -43,7 +43,6 @@ pizza		delivery please
 pizza		how much is a pizza
 pizza		i want to eat
 pizza		pickup please
-negative	fuck you
 negative	i have no idea
 negative	bananas
 negative	lol
