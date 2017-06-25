@@ -1,5 +1,6 @@
 import tensorflow as tf
 from rnn_classifier import BiRNNClassifier
+from data_reader import DataReader
 
 # Model Hyper-Parameters
 # tf.flags.DEFINE_integer("embedding_dim", 128, "Dimensionality of character embedding (default: 128)")
@@ -31,14 +32,10 @@ n_hidden = 128 # hidden layer num of features
 n_classes = 10 # MNIST total classes (0-9 digits)
 
 
-
-
-
-
+dataset = DataReader('runs/1', 'data/demo.tsv')
 
 # Initializing the variables
 
-model = BiRNNClassifier(FLAGS)
+model = BiRNNClassifier(sequence_length=dataset.max_document_length,num_classes=dataset.num_classes)
 model.build()
-model.train([], [])
-
+model.train(dataset)

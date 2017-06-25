@@ -5,8 +5,8 @@ from tensorflow.contrib import rnn
 import numpy as np
 
 # Import MNIST data
-from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+# from tensorflow.examples.tutorials.mnist import input_data
+# mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
 '''
 To classify images using a bidirectional recurrent neural network, we consider
@@ -21,22 +21,24 @@ batch_size = 128
 display_step = 10
 
 # Network Parameters
-n_input = 28 # MNIST data input (img shape: 28*28)
-n_steps = 28 # timesteps
+# n_input = 28 # MNIST data input (img shape: 28*28)
+# n_steps = 28 # timesteps
 n_hidden = 128 # hidden layer num of features
-n_classes = 10 # MNIST total classes (0-9 digits)
+# n_classes = 10 # MNIST total classes (0-9 digits)
 
 
 class BiRNNClassifier:
 
-    def __init__(self, config):
+    def __init__(self, sequence_length, num_classes):
+        self.n_steps = sequence_length
+        self.n_classes = num_classes
         # Define weights
         self.weights = {
             # Hidden layer weights => 2*n_hidden because of forward + backward cells
-            'out': tf.Variable(tf.random_normal([2 * n_hidden, n_classes]))
+            'out': tf.Variable(tf.random_normal([2 * n_hidden, self.n_classes]))
         }
         self.biases = {
-            'out': tf.Variable(tf.random_normal([n_classes]))
+            'out': tf.Variable(tf.random_normal([self.n_classes]))
         }
 
     def build(self):
@@ -48,8 +50,8 @@ class BiRNNClassifier:
 
     def add_placeholders(self):
         # tf Graph input
-        self.x = tf.placeholder("float", [None, n_steps, n_input])
-        self.y = tf.placeholder("float", [None, n_classes])
+        self.x = tf.placeholder("float", [None, self.n_steps, 1])
+        self.y = tf.placeholder("float", [None, self.n_classes])
 
     def add_pred_op(self):
         # Prepare data shape to match `bidirectional_rnn` function requirements
@@ -57,7 +59,7 @@ class BiRNNClassifier:
         # Required shape: 'n_steps' tensors list of shape (batch_size, n_input)
 
         # Unstack to get a list of 'n_steps' tensors of shape (batch_size, n_input)
-        x = tf.unstack(self.x, n_steps, 1)
+        x = tf.unstack(self.x, self.n_steps, 1)
 
         # Define lstm cells with tensorflow
         # Forward direction cell
@@ -90,7 +92,7 @@ class BiRNNClassifier:
         self.accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
 
-    def train(self, train, dev):
+    def train(self, dataset):
         init = tf.global_variables_initializer()
         saver = tf.train.Saver()
         # Launch the graph
@@ -99,9 +101,9 @@ class BiRNNClassifier:
             step = 1
             # Keep training until reach max iterations
             while step * batch_size < training_iters:
-                batch_x, batch_y = mnist.train.next_batch(batch_size)
+                batch_x, batch_y = dataset.train.next_batch(batch_size)
                 # Reshape data to get 28 seq of 28 elements
-                batch_x = batch_x.reshape((batch_size, n_steps, n_input))
+                batch_x = batch_x.reshape((batch_size, self.n_steps, 1))
                 # Run optimization op
                 sess.run(self.optimizer, feed_dict={self.x: batch_x, self.y: batch_y})
                 if step % display_step == 0:
@@ -115,10 +117,10 @@ class BiRNNClassifier:
                 step += 1
             print("Optimization Finished!")
 
-            # Calculate accuracy for 128 mnist test images
-            test_len = 128
-            test_data = mnist.test.images[:test_len].reshape((-1, n_steps, n_input))
-            test_label = mnist.test.labels[:test_len]
-            print("Testing Accuracy:", \
-                  sess.run(self.accuracy, feed_dict={self.x: test_data, self.y: test_label}))
+            # # Calculate accuracy for 128 mnist test images
+            # test_len = 128
+            # test_data = mnist.test.images[:test_len].reshape((-1, n_steps, n_input))
+            # test_label = mnist.test.labels[:test_len]
+            # print("Testing Accuracy:", \
+            #       sess.run(self.accuracy, feed_dict={self.x: test_data, self.y: test_label}))
 
