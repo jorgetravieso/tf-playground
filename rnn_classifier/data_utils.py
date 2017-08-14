@@ -23,13 +23,14 @@ def clean_str(string):
 	return string.strip().lower()
 
 
-def load_data_and_labels(tsv_file="./data/demo.txt"):
+def load_data_and_labels(tsv_file):
 	"""
 	Loads MR polarity data from files, splits the data into words and generates labels.
 	Returns split sentences and labels.
 	"""
 
 	data = list(open(tsv_file, "r").readlines())
+	data = remove_empty_lines(data)
 	labels_counter = 0
 	labels = {}
 
@@ -58,5 +59,14 @@ def save_labels_to_file(output, labels):
 	with open(output + '/labels', 'w') as target:
 		target.write(str(labels))
 
+
 def read_labels(output):
 	return eval(open(output + '/labels', 'r').read())
+
+
+def remove_empty_lines(data):
+	copy = []
+	for e in data:
+		if len(e.strip()) != 0:
+			copy.append(e)
+	return copy

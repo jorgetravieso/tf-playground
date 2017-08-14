@@ -56,8 +56,8 @@ y_shuffled = y[shuffle_indices]
 
 # Split train/test set
 
-x_split_index = len(x_shuffled) * 0.2
-y_split_index = len(y_shuffled) * 0.2
+x_split_index = int(len(x_shuffled) * 0.2)
+y_split_index = int(len(y_shuffled) * 0.2)
 
 x_train, x_dev = x_shuffled[:-x_split_index], x_shuffled[-x_split_index:]
 y_train, y_dev = y_shuffled[:-y_split_index], y_shuffled[-y_split_index:]

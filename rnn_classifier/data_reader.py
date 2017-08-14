@@ -8,7 +8,7 @@ learn = tf.contrib.learn
 
 class DataReader:
 
-	def __init__(self, runs_dir, tsv_file, split_factor=0.2):
+	def __init__(self, runs_dir, tsv_file, split_factor=0.1):
 		# Load data
 		x_text, y, labels = data_utils.load_data_and_labels(tsv_file)
 
@@ -35,6 +35,7 @@ class DataReader:
 		self.dev = Data(x_dev, y_dev)
 		self.max_document_length = max_document_length
 		self.num_classes = len(set(labels))
+		self.vocab_size = len(vocab_processor.vocabulary_)
 
 		# Write vocabulary and labels
 		vocab_processor.save(os.path.join(runs_dir, "vocab"))
